@@ -11,14 +11,14 @@ const langPercent = [
   {name:'c#', usage: 31},
   {name: 'php', usage: 26.4},
   {name: 'c++', usage: 23.5},
-  {name: 'typescript', usage: 21.2888888}
+  {name: 'typescript', usage: 21.2}
 ];
 
 
 function LangList(props) {
   const langs = props.langs;
   const listItems = langs.map((lang) =>
-    <li>{`${langs.lang} - %${langs.lang}`}</li>
+    <li>{`${lang.name} - %${lang.usage}`}</li>
   );
   return (
     <ol>{listItems}</ol>
