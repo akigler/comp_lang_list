@@ -18,7 +18,7 @@ const langPercent = [
 function LangList(props) {
   const langs = props.langs;
   const listItems = langs.map((lang) =>
-    <li>{`${lang} - %${lang}`}</li>
+    <li>{`${langs.lang} - %${langs.lang}`}</li>
   );
   return (
     <ol>{listItems}</ol>
