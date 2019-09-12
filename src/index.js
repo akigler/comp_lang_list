@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
 const langPercent = [
@@ -13,24 +13,36 @@ const langPercent = [
   {name: 'c++', usage: 23.5, about: "C++ (/ˌsiːˌplʌsˈplʌs/) is a general-purpose programming language created by Bjarne Stroustrup as an extension of the C programming language, or 'C with Classes'. The language has expanded significantly over time, and modern C++ has object-oriented, generic, and functional features in addition to facilities for low-level memory manipulation. It is almost always implemented as a compiled language, and many vendors provide C++ compilers, including the Free Software Foundation, LLVM, Microsoft, Intel, and IBM, so it is available on many platforms.[6]"},
   {name: 'typescript', usage: 21.2, about: "TypeScript is designed for development of large applications and transcompiles to JavaScript.[5] As TypeScript is a superset of JavaScript, existing JavaScript programs are also valid TypeScript programs. TypeScript may be used to develop JavaScript applications for both client-side and server-side (Node.js) execution."},
 ];
-
-function LangList(props) {
-  const langs = props.langs;
-  const handleClick = () => {
-    return (
-      <div>
-        <h1>name</h1>
-        <p>about</p>
-      </div>
-    );
-  }
-  const listItems = langs.map((lang) =>
-    <li onClick={handleClick}>{`${lang.name} - %${lang.usage}`}</li>
-  );
+function AboutDisplay(props) {
+  const languageName = props.languageName;
   return (
     <div>
-      <ol onClick={handleClick}>{listItems}</ol>
-      <hr/>
+    {languageName &&
+      <div>
+        <h1>{langPercent[languageName]['name']}</h1>
+        <p>{langPercent[languageName]['about']}</p>
+      </div>
+    }
+    </div>
+  );
+}
+function LangList(props){
+  const [languageName, setlanguageName] = useState(false);
+  const language = props.langs;
+  const listItems = language.map((lang, index) =>
+      <li key={index.toString()} onClick={() => setlanguageName(index.toString())}>
+        {languageName === index.toString() ? (
+          <mark>{`${lang.name} - %${lang.usage}`}</mark>
+        ) : (
+          `${lang.name} - %${lang.usage}`
+        )}
+      </li>
+    );
+  return (
+    <div>
+      <ol>{listItems}</ol>
+      <hr />
+      <AboutDisplay languageName={languageName} />
     </div>
   );
 }
